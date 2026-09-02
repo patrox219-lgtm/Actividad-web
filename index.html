@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directorio de Espacios &mdash; Reservas Universitarias</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="container-xl">
+    <div class="header-row">
+      <a href="#" class="wordmark">
+        <span class="wordmark-mark">E</span>
+        <span class="wordmark-text">Espacios<em>UC</em></span>
+      </a>
+      <nav class="header-nav" aria-label="Secciones">
+        <button class="nav-tab is-active" type="button" data-view="disponibilidad">Disponibilidad</button>
+        <button class="nav-tab" type="button" data-view="reservas">
+          Mis reservas <span class="nav-count" id="reservas-count" hidden>0</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="container-xl">
+    <section class="view" id="view-disponibilidad" data-view-panel="disponibilidad">
+
+      <div class="page-intro">
+        <p class="page-eyebrow">Salas, laboratorios y espacios de reunión</p>
+        <h1>Encuentra un espacio y resérvalo</h1>
+        <p class="page-lede">Consulta la disponibilidad de aulas, laboratorios, salas de estudio y salas de reunión del campus, y solicita tu reserva en un par de pasos.</p>
+      </div>
+
+      <div class="content-grid">
+        <aside class="filters" aria-label="Filtros de búsqueda">
+          <form id="filters-form">
+            <div class="filter-group">
+              <label for="f-search">Buscar</label>
+              <input type="search" id="f-search" class="form-control" placeholder="Nombre o ubicación&hellip;" autocomplete="off">
+            </div>
+
+            <div class="filter-group">
+              <label for="f-edificio">Edificio</label>
+              <select id="f-edificio" class="form-select">
+                <option value="">Todos los edificios</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="f-tipo">Tipo de espacio</label>
+              <select id="f-tipo" class="form-select">
+                <option value="">Todos los tipos</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="f-capacidad">Capacidad mínima</label>
+              <select id="f-capacidad" class="form-select">
+                <option value="0">Cualquier capacidad</option>
+                <option value="5">5 personas o más</option>
+                <option value="10">10 personas o más</option>
+                <option value="20">20 personas o más</option>
+                <option value="40">40 personas o más</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="f-fecha">Fecha</label>
+              <input type="date" id="f-fecha" class="form-control">
+            </div>
+
+            <button type="reset" class="btn-clear-filters" id="btn-clear-filters">Limpiar filtros</button>
+          </form>
+        </aside>
+
+        <div class="results">
+          <div class="results-bar">
+            <p id="results-count">&nbsp;</p>
+          </div>
+
+          <div class="room-ledger" id="room-ledger" role="list">
+        
+          </div>
+
+          <div class="empty-state" id="empty-state" hidden>
+            <p class="empty-state-title">No hay espacios que coincidan con tu búsqueda</p>
+            <p class="empty-state-body">Prueba a ajustar los filtros o a limpiar la búsqueda.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="view" id="view-reservas" data-view-panel="reservas" hidden>
+      <div class="page-intro">
+        <p class="page-eyebrow">Tus solicitudes</p>
+        <h1>Mis reservas</h1>
+        <p class="page-lede">Revisa el estado de tus solicitudes de reserva. Puedes cancelar una reserva en cualquier momento.</p>
+      </div>
+
+      <div class="reservations-list" id="reservations-list">
+       
+      </div>
+
+      <div class="empty-state" id="reservations-empty">
+        <p class="empty-state-title">Aún no tienes reservas</p>
+        <p class="empty-state-body">Ve a <strong>Disponibilidad</strong> y elige un espacio para solicitar tu primera reserva.</p>
+        <button class="btn-ink" type="button" data-goto="disponibilidad">Ver espacios disponibles</button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container-xl">
+    <p>Proyecto académico &middot; Sistema de reservas de espacios universitarios &middot; Datos simulados con JavaScript</p>
+  </div>
+</footer>
+
+<div class="modal fade" id="modal-reservar" tabindex="-1" aria-labelledby="modal-reservar-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <p class="modal-eyebrow" id="modal-room-tipo">Sala</p>
+          <h2 class="modal-title" id="modal-reservar-title">Nombre del espacio</h2>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <form id="form-reservar" novalidate>
+        <div class="modal-body">
+
+          <div class="room-summary" id="modal-room-summary">
+          
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="r-fecha" class="form-label">Fecha</label>
+              <input type="date" id="r-fecha" class="form-control" required>
+              <div class="invalid-feedback">Elige una fecha para la reserva.</div>
+            </div>
+            <div class="col-sm-6">
+              <label for="r-hora" class="form-label">Horario</label>
+              <select id="r-hora" class="form-select" required>
+                <option value="" selected disabled>Selecciona un horario</option>
+                <option>08:30 &ndash; 10:00</option>
+                <option>10:15 &ndash; 11:45</option>
+                <option>12:00 &ndash; 13:30</option>
+                <option>14:30 &ndash; 16:00</option>
+                <option>16:15 &ndash; 17:45</option>
+                <option>18:00 &ndash; 19:30</option>
+              </select>
+              <div class="invalid-feedback">Elige un horario disponible.</div>
+            </div>
+            <div class="col-12">
+              <label for="r-nombre" class="form-label">Nombre de quien reserva</label>
+              <input type="text" id="r-nombre" class="form-control" placeholder="Nombre y apellido" required minlength="3">
+              <div class="invalid-feedback">Ingresa tu nombre completo (mínimo 3 caracteres).</div>
+            </div>
+            <div class="col-12">
+              <label for="r-motivo" class="form-label">Motivo de la reserva</label>
+              <textarea id="r-motivo" class="form-control" rows="2" placeholder="Ej: reunión de ayudantía, estudio grupal, presentación de proyecto" required minlength="5"></textarea>
+              <div class="invalid-feedback">Cuéntanos brevemente para qué usarás el espacio.</div>
+            </div>
+          </div>
+
+          <div class="form-alert" id="modal-alert" hidden></div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-ghost" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn-ink">Confirmar reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
