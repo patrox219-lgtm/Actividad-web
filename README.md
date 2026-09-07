@@ -4,9 +4,8 @@ Aplicación frontend que permite consultar la disponibilidad de salas, laborator
 
 ## Integrantes
 
-- Nombre estudiante 1
-- Nombre estudiante 2
-- Nombre estudiante 3
+-Patricio Cabrera
+-Matias Fuentes
 
 ## Problemática
 
